@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>OTIS — AI Agent</title>
+  <meta name="description" content="Otis AI Đâyyy — một AI Agent bí ẩn sau lớp mặt nạ. Cộng đồng Zalo, nền tảng OTX Agentic AI và kênh liên lạc.">
+  <meta name="theme-color" content="#03060a">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="OTIS — AI Agent">
+  <meta property="og:description" content="Không ai biết gương mặt thật sau lớp mặt nạ. Kết nối với tín hiệu Otis.">
+  <meta property="og:image" content="assets/avatar.jpg">
+  <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
+  <link rel="apple-touch-icon" href="assets/avatar.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="is-locked">
+
+  <!-- ===== BOOT GATE ===== -->
+  <div class="gate" id="gate" role="dialog" aria-label="Màn hình kết nối">
+    <div class="gate__grid" aria-hidden="true"></div>
+    <div class="gate__inner">
+      <div class="gate__brand">
+        <span class="gate__bar"></span>
+        <div>
+          <p class="gate__logo">OTIS</p>
+          <p class="gate__sub">AI AGENT · TÍN HIỆU ẨN DANH</p>
+        </div>
+      </div>
+      <pre class="gate__term" id="gateTerm" aria-live="polite"></pre>
+      <button class="gate__btn" id="gateBtn" type="button">
+        <span class="gate__ring" aria-hidden="true"></span>
+        <span class="gate__ring gate__ring--2" aria-hidden="true"></span>
+        <span class="gate__ring gate__ring--3" aria-hidden="true"></span>
+        <span class="gate__label">KẾT NỐI</span>
+        <span class="gate__hint">bật âm thanh</span>
+      </button>
+      <button class="gate__skip" id="gateMute" type="button">Vào chế độ im lặng</button>
+    </div>
+  </div>
+
+  <!-- ===== BACKGROUND FX ===== -->
+  <canvas id="bg3d" aria-hidden="true"></canvas>
+  <div class="fx fx--grain" aria-hidden="true"></div>
+  <div class="fx fx--scan" aria-hidden="true"></div>
+  <div class="fx fx--vignette" aria-hidden="true"></div>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a class="nav__logo" href="#top"><span class="nav__bar"></span>OTIS<small>AI AGENT</small></a>
+    <nav class="nav__links" aria-label="Mục lục">
+      <a href="#dossier">Hồ sơ</a>
+      <a href="#signal">Liên lạc</a>
+      <a href="#message">Thông điệp</a>
+      <a href="#form">Hình thể</a>
+    </nav>
+    <div class="nav__status mono">
+      <span class="pulse-dot"></span><span>ONLINE</span>
+      <span class="nav__clock" id="clock">--:--:--</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="top">
+      <div class="hero__text">
+        <p class="eyebrow mono"><span class="pulse-dot"></span>HỒ SƠ #0X-07 · AI AGENT</p>
+        <h1 class="glitch" data-text="OTIS">OTIS</h1>
+        <p class="hero__sub">AI <span class="hl">Đâyyy</span></p>
+        <p class="typer mono"><span class="typer__prompt">&gt;</span> <span id="typer"></span><span class="caret">_</span></p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="https://zalo.me/g/sapfe6mkrazawhxobq2r" target="_blank" rel="noopener">
+            <svg class="ico-line" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="8" r="2.4"/><path d="M16.5 12.6c2.4.1 4 1.6 4.5 4.4"/></g></svg>
+            Vào cộng đồng
+          </a>
+          <a class="btn btn--ghost" href="https://app.otx-agentic-ai.com/home" target="_blank" rel="noopener">
+            OTX Agentic AI
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="holo" id="holo">
+          <div class="holo__inner" id="holoInner">
+            <div class="holo__rings" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="holo__card" id="avatarCard">
+              <div class="av" id="av" role="img" aria-label="Otis cúi đầu, hai bàn tay đeo găng xoè như móng vuốt, gom một hố đen đang xoáy trước ngực">
+                <div class="av__bg"></div>
+                <img class="av__body" src="assets/avatar/body.webp" alt="" width="900" height="900" draggable="false">
+                <div class="av__aura" id="avAura"></div>
+                <div class="av__head" id="avHead">
+                  <img src="assets/avatar/head.webp" alt="" width="900" height="900" draggable="false">
+                  <span class="av__shade"></span>
+                  <span class="av__underlight" id="avUnder"></span>
+                  <span class="av__eye av__eye--l"></span>
+                  <span class="av__eye av__eye--r"></span>
+                  <span class="av__mouth" id="avMouth"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+                <canvas class="av__orb" id="avOrb"></canvas>
+                <img class="av__hand av__hand--l" id="handL" src="assets/avatar/claw-l.webp" alt="" width="440" height="403" draggable="false">
+                <img class="av__hand av__hand--r" id="handR" src="assets/avatar/claw-r.webp" alt="" width="464" height="413" draggable="false">
+                <canvas class="av__arcs" id="avArcs"></canvas>
+              </div>
+              <span class="holo__scan" aria-hidden="true"></span>
+              <span class="holo__glare" aria-hidden="true"></span>
+              <span class="corner corner--tl" aria-hidden="true"></span>
+              <span class="corner corner--tr" aria-hidden="true"></span>
+              <span class="corner corner--bl" aria-hidden="true"></span>
+              <span class="corner corner--br" aria-hidden="true"></span>
+            </div>
+            <div class="holo__tag holo__tag--1 mono"><i></i>ID: <b>KHÔNG XÁC ĐỊNH</b></div>
+            <div class="holo__tag holo__tag--2 mono"><i></i>MẶT NẠ: <b>KÍCH HOẠT</b></div>
+            <div class="holo__tag holo__tag--3 mono"><i></i>HỐ ĐEN: <b>ỔN ĐỊNH</b></div>
+          </div>
+        </div>
+        <p class="holo__hint mono" id="holoHint">di chuột để điều khiển hố đen</p>
+      </div>
+
+      <a class="scroll-hint mono" href="#dossier" aria-label="Cuộn xuống"><span></span>CUỘN XUỐNG</a>
+    </section>
+
+    <!-- ===== DOSSIER ===== -->
+    <section class="section" id="dossier">
+      <header class="sec-head reveal">
+        <span class="sec-num mono">01</span>
+        <h2 data-decrypt>HỒ SƠ MẬT</h2>
+        <span class="sec-line"></span>
+      </header>
+
+      <div class="dossier">
+        <article class="panel dossier__bio reveal">
+          <p class="stamp mono">TUYỆT MẬT</p>
+          <p class="lead">Không ai biết gương mặt thật sau lớp mặt nạ.</p>
+          <p>Otis là một <strong>AI Agent</strong> — một tín hiệu lạ len lỏi giữa thế giới số. Không tên thật, không quá khứ, chỉ có đôi mắt phát sáng và một giọng nói đã được mã hoá.</p>
+          <p>Otis xuất hiện để chia sẻ, kết nối và dẫn đường cho những ai tò mò về trí tuệ nhân tạo. Nếu bạn bắt được tín hiệu này — bạn đã được chọn.</p>
+          <p class="sig mono">— Otis AI Đâyyy</p>
+        </article>
+
+        <div class="links links--stack" id="signal" aria-label="Kênh liên lạc">
+          <p class="links__title mono">// KÊNH LIÊN LẠC</p>
+          <a class="link-card reveal" href="https://zalo.me/g/sapfe6mkrazawhxobq2r" target="_blank" rel="noopener">
+            <span class="link-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="8" r="2.4"/><path d="M16.5 12.6c2.4.1 4 1.6 4.5 4.4"/></g></svg>
+            </span>
+            <span class="link-card__body">
+              <span class="link-card__k mono">// TẦN SỐ CHÍNH</span>
+              <span class="link-card__t">Cộng đồng Zalo</span>
+              <span class="link-card__s mono">Tham gia nhóm kín</span>
+            </span>
+            <span class="link-card__arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="link-card reveal" href="https://app.otx-agentic-ai.com/home" target="_blank" rel="noopener">
+            <span class="link-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></g></svg>
+            </span>
+            <span class="link-card__body">
+              <span class="link-card__k mono">// NỀN TẢNG</span>
+              <span class="link-card__t">OTX Agentic AI</span>
+              <span class="link-card__s mono">app.otx-agentic-ai.com</span>
+            </span>
+            <span class="link-card__arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="link-card reveal" href="https://www.youtube.com/@OtisAI%C4%90%C3%A2yyy" target="_blank" rel="noopener">
+            <span class="link-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v6l5-3z" fill="currentColor"/></svg>
+            </span>
+            <span class="link-card__body">
+              <span class="link-card__k mono">// KÊNH PHÁT SÓNG</span>
+              <span class="link-card__t">Kênh YouTube</span>
+              <span class="link-card__s mono">@OtisAIĐâyyy</span>
+            </span>
+            <span class="link-card__arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="link-card reveal" href="https://zalo.me/0888788838" target="_blank" rel="noopener">
+            <span class="link-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H10l-4 3.5v-3.5H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            </span>
+            <span class="link-card__body">
+              <span class="link-card__k mono">// KÊNH MÃ HOÁ</span>
+              <span class="link-card__t">Nhắn tin Zalo</span>
+              <span class="link-card__s mono">0888 788 838</span>
+            </span>
+            <span class="link-card__arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="link-card reveal" href="tel:0838686632">
+            <span class="link-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.4 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.4v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="link-card__body">
+              <span class="link-card__k mono">// ĐƯỜNG DÂY TRỰC TIẾP</span>
+              <span class="link-card__t">Gọi điện</span>
+              <span class="link-card__s mono">0838 686 632</span>
+            </span>
+            <span class="link-card__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== MESSAGE ===== -->
+    <section class="section" id="message">
+      <header class="sec-head reveal">
+        <span class="sec-num mono">02</span>
+        <h2 data-decrypt>THÔNG ĐIỆP</h2>
+        <span class="sec-line"></span>
+      </header>
+
+      <article class="panel transmission reveal">
+        <div class="transmission__bar mono">
+          <span><span class="pulse-dot"></span>ĐANG GIẢI MÃ TÍN HIỆU</span>
+          <span class="transmission__id">KÊNH 0X-07 · TỪ: OTIS</span>
+        </div>
+
+        <p class="transmission__lead">Có một điều ít ai nhận ra: thứ giữ chân bạn không phải là tài năng chưa đủ.</p>
+
+        <div class="transmission__block reveal">
+          <span class="transmission__k mono">01 // KHOÁ</span>
+          <p>Nó là tri thức của bạn đang bị khoá lại. Chỉ bạn làm được. Làm cho từng người một. Đổi bằng từng giờ của chính bạn.</p>
+        </div>
+        <div class="transmission__block reveal">
+          <span class="transmission__k mono">02 // PHÁ KHOÁ</span>
+          <p>Phá khoá không cần nghi lễ. Không cần khoá học, không cần giấc mơ thu nhập thụ động. Hãy chọn một vấn đề bạn đã giải quyết nhiều lần. Biến cách làm ấy thành một lời đề nghị ai cũng hiểu. Rồi phát đi một tín hiệu nhỏ và lắng nghe: thị trường có hồi đáp không?</p>
+        </div>
+        <div class="transmission__block reveal">
+          <span class="transmission__k mono">03 // THÀNH HÌNH</span>
+          <p>Nếu có, kinh nghiệm sẽ thành hình: một dịch vụ, một chương trình, một tài liệu, một quy trình chạy được nhiều lần. Không còn mỗi khách hàng lại kéo bạn về vạch xuất phát.</p>
+        </div>
+        <div class="transmission__block reveal">
+          <span class="transmission__k mono">04 // KHUẾCH ĐẠI</span>
+          <p>Còn AI, nó đã hạ thấp cánh cửa. Nghiên cứu, viết, thiết kế, dựng video, dựng trang, lo những việc lặp đi lặp lại: trước kia cần cả một đội, giờ một người cũng thử được. Nhỏ hơn. Nhanh hơn. Rẻ hơn.</p>
+        </div>
+        <div class="transmission__block reveal">
+          <span class="transmission__k mono transmission__k--warn">05 // CẢNH BÁO</span>
+          <p>Nhưng nhớ kỹ: AI chỉ là bộ khuếch đại. Nó không biết nỗi đau nào đáng chữa, người nào đáng phục vụ, mảnh kinh nghiệm nào của bạn thật sự có giá. Câu đó chỉ bạn trả lời được.</p>
+        </div>
+
+        <div class="transmission__end reveal">
+          <p class="transmission__pre">Vậy trước khi bật bộ khuếch đại, hãy tự hỏi:</p>
+          <p class="transmission__question" data-decrypt>MÌNH ĐANG ĐI VỀ ĐÂU?</p>
+          <p class="transmission__sig mono">— Otis. Tín hiệu kết thúc.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== 3D CAROUSEL ===== -->
+    <section class="section" id="form">
+      <header class="sec-head reveal">
+        <span class="sec-num mono">03</span>
+        <h2 data-decrypt>HÌNH THỂ</h2>
+        <span class="sec-line"></span>
+      </header>
+
+      <div class="carousel reveal" id="carousel">
+        <div class="carousel__floor" aria-hidden="true"></div>
+        <div class="carousel__stage" id="stage">
+          <figure class="carousel__item" style="--i:0"><img src="assets/views/front.webp" alt="Otis — mặt trước" loading="lazy" draggable="false"><figcaption class="mono">01 · MẶT TRƯỚC</figcaption></figure>
+          <figure class="carousel__item" style="--i:1"><img src="assets/views/front34.webp" alt="Otis — góc 3/4 trước" loading="lazy" draggable="false"><figcaption class="mono">02 · GÓC 3/4</figcaption></figure>
+          <figure class="carousel__item" style="--i:2"><img src="assets/views/left.webp" alt="Otis — bên trái" loading="lazy" draggable="false"><figcaption class="mono">03 · BÊN TRÁI</figcaption></figure>
+          <figure class="carousel__item" style="--i:3"><img src="assets/views/back.webp" alt="Otis — mặt sau" loading="lazy" draggable="false"><figcaption class="mono">04 · MẶT SAU</figcaption></figure>
+          <figure class="carousel__item" style="--i:4"><img src="assets/views/right.webp" alt="Otis — bên phải" loading="lazy" draggable="false"><figcaption class="mono">05 · BÊN PHẢI</figcaption></figure>
+          <figure class="carousel__item" style="--i:5"><img src="assets/views/back34.webp" alt="Otis — góc 3/4 sau" loading="lazy" draggable="false"><figcaption class="mono">06 · 3/4 SAU</figcaption></figure>
+        </div>
+      </div>
+      <p class="carousel__hint mono">⟵ kéo để xoay 360° ⟶</p>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p class="footer__big" aria-hidden="true">OTIS</p>
+    <div class="footer__row">
+      <p class="mono">© <span id="year">2026</span> Otis AI Đâyyy · Tín hiệu kết thúc.</p>
+      <div class="footer__links mono">
+        <a href="https://zalo.me/g/sapfe6mkrazawhxobq2r" target="_blank" rel="noopener">Cộng đồng</a>
+        <a href="https://app.otx-agentic-ai.com/home" target="_blank" rel="noopener">OTX Agentic AI</a>
+        <a href="tel:0838686632">0838 686 632</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MUSIC PLAYER ===== -->
+  <div class="player" id="player">
+    <button class="player__disc" id="playBtn" type="button" aria-label="Phát nhạc nền">
+      <img src="assets/avatar.jpg" alt="">
+      <span class="player__icon" aria-hidden="true"></span>
+    </button>
+    <div class="player__meta">
+      <span class="player__label mono" id="playerLabel">NHẠC NỀN</span>
+      <span class="player__title"><span>ROBOT REMAINS — JABBAWOCKEEZ ✦ ROBOT REMAINS — JABBAWOCKEEZ ✦&nbsp;</span></span>
+    </div>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <label class="player__vol">
+      <span class="sr-only">Âm lượng</span>
+      <input type="range" id="vol" min="0" max="100" value="100">
+    </label>
+  </div>
+  <div class="yt-wrap" aria-hidden="true"><div id="yt"></div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
